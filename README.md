@@ -1,5 +1,5 @@
 # docker-demo
-##Step 0
+## Step 0
 安装docker
 ### MacOs
 macOS 我们可以使用 Homebrew 来安装 Docker。
@@ -43,10 +43,10 @@ docker run hello-world
 ```
 Homebrew 的 Cask 已经支持 Docker for Mac，因此可以很方便的使用 Homebrew Cask 来进行安装：
 `brew cask install docker`
-##Step 1
+## Step 1
 使用Maven对项目进行编译  
 `mvn clean install docker:build`
 
-##Step 2
+## Step 2
 使用docker直接运行项目
 `docker run -it -p 8080:9080 guoxin/docker-demo`

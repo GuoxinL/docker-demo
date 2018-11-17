@@ -137,6 +137,4 @@ cat /var/lib/docker/volumes/jenkins_home/_data/secrets/initialAdminPassword
 
 这两种方法都可以实现把容器里的数据持久化到本地，但是更推荐第二种方法  
 
-将日志中的密码填写到jenkins的页面中就可以了
-
-docker run -d -v jenkins_home:/var/jenkins_home -p 8080:8080 -p 50000:50000 jenkins/jenkins:lts
+将密码填写到jenkins的页面中就可以了

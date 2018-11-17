@@ -59,7 +59,7 @@ docker run -it -p 8080:9080 guoxin/docker-demo
 
 ## Step 4
 安装Jenkins并使用自动化部署该项目
-#### 使用Docker部署并运行jenkins
+### 使用Docker部署并运行jenkins
 使用docker同步jenkins镜像
 ```bash
 docker pull jenkins/jenkins:lts
@@ -90,6 +90,9 @@ docker pull jenkins/jenkins:lts
 >Digest: sha256:a1c7f439da639c75135a667cf0bf164b0db546e8b790c2fce5aed77aba7bc0f1  
 >Status: Downloaded newer image for jenkins/jenkins:lts  
 
+运行jenkins的镜像的时候有两种映射本地磁盘的方式
+#### 第一种 挂载指定目录
+
 创建jenkins目录  
 ```    bash
 mkdir ~/jenkins_home
@@ -103,81 +106,37 @@ chown -R 1000:1000 ~/jenkins_home
 docker run -d -v ~/jenkins_home:/var/jenkins_home -p 8080:8080 -p 50000:50000 jenkins/jenkins:lts
 ```
 
->9f7f87d7bb36a2b94f76d154ef13b65332bd470b482134438b24313c119945c1
-
-```    bash
-docker logs 9f7f87d7bb36a2b94f76d154ef13b65332bd470b482134438b24313c119945c1
+```bash
+cat ~/jenkins_home/_data/secrets/initialAdminPassword
 ```
->Running from: /usr/share/jenkins/jenkins.war    >webroot: EnvVars.masterEnvVars.get("JENKINS_HOME")  
->Nov 17, 2018 8:10:32 AM org.eclipse.jetty.util.log.Log initialized  
->INFO: Logging initialized @426ms to org.eclipse.jetty.util.log.JavaUtilLog  
->Nov 17, 2018 8:10:32 AM winstone.Logger logInternal  
->INFO: Beginning extraction from war file  
->Nov 17, 2018 8:10:33 AM org.eclipse.jetty.server.handler.ContextHandler setContextPath  
->WARNING: Empty contextPath  
->Nov 17, 2018 8:10:33 AM org.eclipse.jetty.server.Server doStart  
->INFO: jetty-9.4.z-SNAPSHOT; built: 2018-06-05T18:24:03.829Z; git: d5fc0523cfa96bfebfbda19606cad384d772f04c; jvm 1.8.0_181-8u181-b13-2~deb9u1-b13  
->Nov 17, 2018 8:10:33 AM org.eclipse.jetty.webapp.StandardDescriptorProcessor visitServlet  
->INFO: NO JSP Support for /, did not find org.eclipse.jetty.jsp.JettyJspServlet  
->Nov 17, 2018 8:10:33 AM org.eclipse.jetty.server.session.DefaultSessionIdManager doStart  
->INFO: DefaultSessionIdManager workerName=node0  
->Nov 17, 2018 8:10:33 AM org.eclipse.jetty.server.session.DefaultSessionIdManager doStart  
->INFO: No SessionScavenger set, using defaults  
->Nov 17, 2018 8:10:33 AM org.eclipse.jetty.server.session.HouseKeeper startScavenging  
->INFO: node0 Scavenging every 660000ms  
->Jenkins home directory: /var/jenkins_home found at: EnvVars.masterEnvVars.get("JENKINS_HOME")  
->Nov 17, 2018 8:10:34 AM org.eclipse.jetty.server.handler.ContextHandler doStart  
->INFO: Started w.@67ef029{Jenkins v2.138.3,/,file:///var/jenkins_home/war/,AVAILABLE}{/var/jenkins_home/war}  
->Nov 17, 2018 8:10:34 AM org.eclipse.jetty.server.AbstractConnector doStart  
->INFO: Started ServerConnector@5aabbb29{HTTP/1.1,[http/1.1]}{0.0.0.0:8080}  
->Nov 17, 2018 8:10:34 AM org.eclipse.jetty.server.Server doStart  
->INFO: Started @2802ms  
->Nov 17, 2018 8:10:34 AM winstone.Logger logInternal  
->INFO: Winstone Servlet Engine v4.0 running: controlPort=disabled  
->Nov 17, 2018 8:10:35 AM jenkins.InitReactorRunner$1 onAttained  
->INFO: Started initialization  
->Nov 17, 2018 8:10:35 AM jenkins.InitReactorRunner$1 onAttained  
->INFO: Listed all plugins  
->Nov 17, 2018 8:10:36 AM jenkins.InitReactorRunner$1 onAttained  
->INFO: Prepared all plugins  
->Nov 17, 2018 8:10:36 AM jenkins.InitReactorRunner$1 onAttained  
->INFO: Started all plugins  
->Nov 17, 2018 8:10:36 AM jenkins.InitReactorRunner$1 onAttained  
->INFO: Augmented all extensions  
->Nov 17, 2018 8:10:37 AM jenkins.InitReactorRunner$1 onAttained  
->INFO: Loaded all jobs  
->Nov 17, 2018 8:10:37 AM hudson.model.AsyncPeriodicWork$1 run  
->INFO: Started Download metadata  
->Nov 17, 2018 8:10:37 AM jenkins.util.groovy.GroovyHookScript execute  
->INFO: Executing /var/jenkins_home/init.groovy.d/tcp-slave-agent-port.groovy  
->Nov 17, 2018 8:10:38 AM org.springframework.context.support.AbstractApplicationContext prepareRefresh  
->INFO: Refreshing org.springframework.web.context.support.StaticWebApplicationContext@4b30a440: display name [Root WebApplicationContext]; startup date [Sat Nov 17 08:10:38 UTC 2018]; root of context hierarchy  
->Nov 17, 2018 8:10:38 AM org.springframework.context.support.AbstractApplicationContext obtainFreshBeanFactory  
->INFO: Bean factory for application context [org.springframework.web.context.support.StaticWebApplicationContext@4b30a440]: org.springframework.beans.factory.support.DefaultListableBeanFactory@5bc15702  
->Nov 17, 2018 8:10:38 AM org.springframework.beans.factory.support.DefaultListableBeanFactory preInstantiateSingletons  
->INFO: Pre-instantiating singletons in org.springframework.beans.factory.support.DefaultListableBeanFactory@5bc15702: defining beans [authenticationManager]; root of factory hierarchy  
->Nov 17, 2018 8:10:38 AM org.springframework.context.support.AbstractApplicationContext prepareRefresh  
->INFO: Refreshing org.springframework.web.context.support.StaticWebApplicationContext@63342122: display name [Root WebApplicationContext]; startup date [Sat Nov 17 08:10:38 UTC 2018]; root of context hierarchy  
->Nov 17, 2018 8:10:38 AM org.springframework.context.support.AbstractApplicationContext obtainFreshBeanFactory  
->INFO: Bean factory for application context [org.springframework.web.context.support.StaticWebApplicationContext@63342122]: org.springframework.beans.factory.support.DefaultListableBeanFactory@7446711b  
->Nov 17, 2018 8:10:38 AM org.springframework.beans.factory.support.DefaultListableBeanFactory preInstantiateSingletons  
->INFO: Pre-instantiating singletons in org.springframework.beans.factory.support.DefaultListableBeanFactory@7446711b: defining beans [filter,legacy]; root of factory hierarchy  
->Nov 17, 2018 8:10:38 AM jenkins.install.SetupWizard init  
->INFO:  
->  
->*************************************************************  
->*************************************************************  
->*************************************************************  
->  
->Jenkins initial setup is required. An admin user has been created and a password generated.  
->Please use the following password to proceed to installation:  
->  
->b5c3fccee7b14caeac1e3917890c6dd4  
->  
->This may also be found at: /var/jenkins_home/secrets/initialAdminPassword  
->  
->*************************************************************  
->*************************************************************  
->*************************************************************  
+>e9ce325859834111943e766fe07c9e55
+#### 第二种 挂载Volume (推荐)
+```bash
+docker run -d -v jenkins_home:/var/jenkins_home -p 8080:8080 -p 50000:50000 jenkins/jenkins:lts
+```
+```bash
+docker inspect jenkins_home
+```
+>[  
+>    {  
+>        "CreatedAt": "2018-11-17T16:50:02+08:00",  
+>        "Driver": "local",  
+>        "Labels": null,  
+>        "Mountpoint": "/var/lib/docker/volumes/jenkins_home/_data",  
+>        "Name": "jenkins_home",  
+>        "Options": null,  
+>        "Scope": "local"  
+>    }  
+>]  
+
+我们可以通过Mountpoint属性的路径进入到Volume所映射的路径，可以查看相关文件（但是不推荐在宿主机中直接修改文件推荐直接进入到容器中进行修改操作）
+```bash
+cat /var/lib/docker/volumes/jenkins_home/_data/secrets/initialAdminPassword
+```
+>e9ce325859834111943e766fe07c9e55
+
+这两种方法都可以实现把容器里的数据持久化到本地，但是更推荐第二种方法  
 
 将日志中的密码填写到jenkins的页面中就可以了
+
+docker run -d -v jenkins_home:/var/jenkins_home -p 8080:8080 -p 50000:50000 jenkins/jenkins:lts

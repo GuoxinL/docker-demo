@@ -23,15 +23,10 @@ pipeline {
                 echo 'Deploying...'
                 step {
                     script {
-                        def running = ssh -f -n root@${TARGET_SERVER_IP} docker ps | grep ${PROJECT_NAME}
-                        echo ${running};
+                        ssh -f -n root@${TARGET_SERVER_IP} docker ps | grep ${PROJECT_NAME}
+                        echo $?;
                     }
-                    node {
-                        def running = sh "ssh -f -n root@${TARGET_SERVER_IP} docker ps | grep ${PROJECT_NAME}"
-                        echo ${running}
-                        echo running
-                        sh "ssh -f -n root@${TARGET_SERVER_IP} docker pull ${DOCKER_REPOSITORY}/${DOCKER_IMAGE_PREFIX}/${PROJECT_NAME}:latest"
-                    }
+                    sh "ssh -f -n root@${TARGET_SERVER_IP} docker pull ${DOCKER_REPOSITORY}/${DOCKER_IMAGE_PREFIX}/${PROJECT_NAME}:latest"
                 }
                 step {
                     // sh "ssh -f -n root@${TARGET_SERVER_IP} docker stop ${PROJECT_NAME}

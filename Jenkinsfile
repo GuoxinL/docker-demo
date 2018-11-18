@@ -1,7 +1,7 @@
 pipeline {
     agent any
     environment {
-        def TARGET_SERVER_IP = "xxx.xx.xx.x"
+        def TARGET_SERVER_IP = "172.16.0.16"
         def DOCKER_REPOSITORY = "registry.cn-hangzhou.aliyuncs.com"
         def DOCKER_IMAGE_PREFIX = "guoxin_docker_demo"
         def PROJECT_NAME = "docker-demo"
@@ -32,7 +32,7 @@ pipeline {
                 // sh "ssh -f -n root@${TARGET_SERVER_IP} docker stop ${PROJECT_NAME}
             }
             steps {
-                // sh "ssh -f -n root@${TARGET_SERVER_IP} docker run -d -v ${PROJECT_NAME}_TMP:/tmp -name ${PROJECT_NAME} -p 8080:9080 ${PROJECT_NAME}:latest"
+                // sh "ssh -f -n root@${TARGET_SERVER_IP} docker run -d -v ${PROJECT_NAME}_TMP:/tmp -nam ae ${PROJECT_NAME} -p 8080:9080 ${PROJECT_NAME}:latest"
             }
 
         }

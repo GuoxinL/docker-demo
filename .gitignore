@@ -2,3 +2,4 @@
 .idea/
 docker-demo.iml
 target/
+src/test/

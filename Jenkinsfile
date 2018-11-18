@@ -23,7 +23,9 @@ pipeline {
                 echo 'Deploying...'
             }
             steps {
-                echo ''
+                def running = sh "ssh -f -n root@${TARGET_SERVER_IP} docker ps | grep ${PROJECT_NAME}"
+                echo ${running}
+                echo running
                 sh "ssh -f -n root@${TARGET_SERVER_IP} docker pull ${DOCKER_REPOSITORY}/${DOCKER_IMAGE_PREFIX}/${PROJECT_NAME}:latest"
             }
             steps {

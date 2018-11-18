@@ -1,7 +1,7 @@
 pipeline {
     agent any
     environment {
-        def TARGET_SERVER_IP = "172.16.0.16"
+        def TARGET_SERVER_IP = "172.16.0.13"
         def DOCKER_REPOSITORY = "registry.cn-hangzhou.aliyuncs.com"
         def DOCKER_IMAGE_PREFIX = "guoxin_docker_demo"
         def PROJECT_NAME = "docker-demo"

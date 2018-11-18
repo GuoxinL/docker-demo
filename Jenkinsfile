@@ -21,19 +21,20 @@ pipeline {
         stage('Deploy') {
             steps {
                 echo 'Deploying...'
+                step {
+                    def running = sh "ssh -f -n root@${TARGET_SERVER_IP} docker ps | grep ${PROJECT_NAME}"
+                    echo ${running}
+                    echo running
+                    sh "ssh -f -n root@${TARGET_SERVER_IP} docker pull ${DOCKER_REPOSITORY}/${DOCKER_IMAGE_PREFIX}/${PROJECT_NAME}:latest"
+                }
+                step {
+                    // sh "ssh -f -n root@${TARGET_SERVER_IP} docker stop ${PROJECT_NAME}
+                }
+                step {
+                    // sh "ssh -f -n root@${TARGET_SERVER_IP} docker run -d -v ${PROJECT_NAME}_TMP:/tmp -nam ae ${PROJECT_NAME} -p 8080:9080 ${PROJECT_NAME}:latest"
+                }
             }
-            steps {
-                def running = sh "ssh -f -n root@${TARGET_SERVER_IP} docker ps | grep ${PROJECT_NAME}"
-                echo ${running}
-                echo running
-                sh "ssh -f -n root@${TARGET_SERVER_IP} docker pull ${DOCKER_REPOSITORY}/${DOCKER_IMAGE_PREFIX}/${PROJECT_NAME}:latest"
-            }
-            steps {
-                // sh "ssh -f -n root@${TARGET_SERVER_IP} docker stop ${PROJECT_NAME}
-            }
-            steps {
-                // sh "ssh -f -n root@${TARGET_SERVER_IP} docker run -d -v ${PROJECT_NAME}_TMP:/tmp -nam ae ${PROJECT_NAME} -p 8080:9080 ${PROJECT_NAME}:latest"
-            }
+
 
         }
     }

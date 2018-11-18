@@ -137,4 +137,9 @@ cat /var/lib/docker/volumes/jenkins_home/_data/secrets/initialAdminPassword
 
 这两种方法都可以实现把容器里的数据持久化到本地，但是更推荐第二种方法  
 
+### Jenkins登陆白屏
+```xml
+<authorizationStrategy class="hudson.security.AuthorizationStrategy$Unsecured"/>
+  <securityRealm class="hudson.security.SecurityRealm$None"/>
+```
 将密码填写到jenkins的页面中就可以了

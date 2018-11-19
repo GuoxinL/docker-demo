@@ -28,7 +28,7 @@ pipeline {
                     sh "ssh -f -n root@${TARGET_SERVER_IP} docker rm -f ${PROJECT_NAME}
                 }
                 step {
-                    // sh "ssh -f -n root@${TARGET_SERVER_IP} docker run -d -v ${PROJECT_NAME}_TMP:/tmp -nam ae ${PROJECT_NAME} -p 8080:9080 ${PROJECT_NAME}:latest"
+                    sh "ssh -f -n root@${TARGET_SERVER_IP} docker run -d -v ${PROJECT_NAME}_TMP:/tmp -nam ae ${PROJECT_NAME} -p 8080:9080 ${PROJECT_NAME}:latest"
                 }
             }
         }

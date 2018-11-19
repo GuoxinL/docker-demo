@@ -21,15 +21,9 @@ pipeline {
         stage('Deploy') {
             steps {
                 echo 'Deploying...'
-                step {
-                    sh "ssh -f -n root@${TARGET_SERVER_IP} docker pull ${DOCKER_REPOSITORY}/${DOCKER_IMAGE_PREFIX}/${PROJECT_NAME}:latest"
-                }
-                step {
-                    sh "ssh -f -n root@${TARGET_SERVER_IP} docker rm -f ${PROJECT_NAME}"
-                }
-                step {
-                    sh "ssh -f -n root@${TARGET_SERVER_IP} docker run -d -v ${PROJECT_NAME}_TMP:/tmp -nam ae ${PROJECT_NAME} -p 8080:9080 ${PROJECT_NAME}:latest"
-                }
+                sh "ssh -f -n root@${TARGET_SERVER_IP} docker pull ${DOCKER_REPOSITORY}/${DOCKER_IMAGE_PREFIX}/${PROJECT_NAME}:latest"
+                sh "ssh -f -n root@${TARGET_SERVER_IP} docker rm -f ${PROJECT_NAME}"
+                sh "ssh -f -n root@${TARGET_SERVER_IP} docker run -d -v ${PROJECT_NAME}_TMP:/tmp -nam ae ${PROJECT_NAME} -p 8080:9080 ${PROJECT_NAME}:latest"
             }
         }
     }

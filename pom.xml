@@ -14,6 +14,10 @@
     <version>1.0-SNAPSHOT</version>
 
     <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <java.version>1.8</java.version>
+
+        <!--docker-->
         <docker.image.prefix>guoxin_docker_demo</docker.image.prefix>
         <docker.repository>registry.cn-hangzhou.aliyuncs.com</docker.repository>
     </properties>

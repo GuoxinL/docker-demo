@@ -115,7 +115,7 @@ cat ~/jenkins_home/_data/secrets/initialAdminPassword
 docker run -d -v jenkins_home:/var/jenkins_home -p 8080:8080 -p 50000:50000 jenkins/jenkins:lts
 ```
 ```bash
-docker inspect jenkins_home
+docker volume inspect jenkins_home
 ```
 >[  
 >    {  
@@ -143,3 +143,6 @@ cat /var/lib/docker/volumes/jenkins_home/_data/secrets/initialAdminPassword
   <securityRealm class="hudson.security.SecurityRealm$None"/>
 ```
 将密码填写到jenkins的页面中就可以了
+
+
+sudo docker run -t -i -p 8080:8080 -v /etc/localtime:/etc/localtime:ro -v jenkins_home:/var/jenkins_home -P stephenreed/java8-jenkins-maven-git-nano

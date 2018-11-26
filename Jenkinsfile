@@ -6,6 +6,11 @@ pipeline {
         def DOCKER_IMAGE_PREFIX = "guoxin_docker_demo"
         def PROJECT_NAME = "docker-demo"
     }
+
+    tools {
+        maven 'apache-maven-3.6.0'
+    }
+
     stages {
         stage('Build') {
             steps {

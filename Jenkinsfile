@@ -10,7 +10,7 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Build and pushing...'
-                sh "mvn clean install docker:push -f pom.xml"
+                sh "mvn clean package docker:push -f pom.xml"
             }
         }
         stage('Test') {

@@ -62,7 +62,7 @@
 
                     <imageTags>
                         <!--docker的tag为项目版本号、latest-->
-                        <!--<imageTag>${git.commit.id.abbrev}</imageTag>-->
+                        <imageTag>${version}</imageTag>
                         <imageTag>latest</imageTag>
                     </imageTags>
                     <!-- optionally overwrite tags every time image is built with docker:build -->

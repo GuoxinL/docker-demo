@@ -25,15 +25,17 @@ pipeline {
         }
 
         stage('Deploy') {
-            echo 'Deploying...'
-            sh "ssh -n root@${TARGET_SERVER_IP} docker pull ${DOCKER_REPOSITORY}/${DOCKER_IMAGE_PREFIX}/${PROJECT_NAME}:latest"
-            // 如果没有容器则catch住异常
-            try{
-                sh "ssh -n root@${TARGET_SERVER_IP} docker rm -f ${PROJECT_NAME}"
-            }catch(e){
-                // err message
+            steps {
+                echo 'Deploying...'
+                sh "ssh -n root@${TARGET_SERVER_IP} docker pull ${DOCKER_REPOSITORY}/${DOCKER_IMAGE_PREFIX}/${PROJECT_NAME}:latest"
+                // 如果没有容器则catch住异常
+                try{
+                    sh "ssh -n root@${TARGET_SERVER_IP} docker rm -f ${PROJECT_NAME}"
+                }catch(e){
+                    // err message
+                }
+                sh "ssh -n root@${TARGET_SERVER_IP} docker run -d -v ${PROJECT_NAME}_TMP:/tmp -nam ae ${PROJECT_NAME} -p 8080:9080 ${PROJECT_NAME}:latest"
             }
-            sh "ssh -n root@${TARGET_SERVER_IP} docker run -d -v ${PROJECT_NAME}_TMP:/tmp -nam ae ${PROJECT_NAME} -p 8080:9080 ${PROJECT_NAME}:latest"
         }
     }
 }

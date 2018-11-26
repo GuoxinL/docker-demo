@@ -37,7 +37,7 @@ pipeline {
                         // err message
                     }
                 }
-                sh "ssh -n root@${TARGET_SERVER_IP} docker run -d -v ${PROJECT_NAME}_TMP:/tmp -name ${PROJECT_NAME} -p 8080:9080 ${DOCKER_REPOSITORY}/${DOCKER_IMAGE_PREFIX}/${PROJECT_NAME}:${POM_VERSION}"
+                sh "ssh -n root@${TARGET_SERVER_IP} docker run -d -v ${PROJECT_NAME}_TMP:/tmp --name ${PROJECT_NAME} -p 8080:9080 ${DOCKER_REPOSITORY}/${DOCKER_IMAGE_PREFIX}/${PROJECT_NAME}:${POM_VERSION}"
             }
         }
     }

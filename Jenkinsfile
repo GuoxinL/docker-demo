@@ -5,6 +5,7 @@ pipeline {
         def DOCKER_REPOSITORY = "registry.cn-hangzhou.aliyuncs.com"
         def DOCKER_IMAGE_PREFIX = "guoxin_docker_demo"
         def PROJECT_NAME = "docker-demo"
+        def POM_VERSION = "1.0-SNAPSHOT"
     }
 
     tools {
@@ -27,7 +28,7 @@ pipeline {
         stage('Deploy') {
             steps {
                 echo 'Deploying...'
-                sh "ssh -n root@${TARGET_SERVER_IP} docker pull ${DOCKER_REPOSITORY}/${DOCKER_IMAGE_PREFIX}/${PROJECT_NAME}:latest"
+                sh "ssh -n root@${TARGET_SERVER_IP} docker pull ${DOCKER_REPOSITORY}/${DOCKER_IMAGE_PREFIX}/${PROJECT_NAME}:${POM_VERSION}"
                 // 如果没有容器则catch住异常
                 script {
                     try {
@@ -36,7 +37,7 @@ pipeline {
                         // err message
                     }
                 }
-                sh "ssh -n root@${TARGET_SERVER_IP} docker run -d -v ${PROJECT_NAME}_TMP:/tmp -nam ae ${PROJECT_NAME} -p 8080:9080 ${PROJECT_NAME}:latest"
+                sh "ssh -n root@${TARGET_SERVER_IP} docker run -d -v ${PROJECT_NAME}_TMP:/tmp -name ${PROJECT_NAME} -p 8080:9080 ${PROJECT_NAME}:${POM_VERSION}"
             }
         }
     }
